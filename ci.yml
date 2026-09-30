@@ -1,0 +1,29 @@
+name: CI Bella Glow
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  validar:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar el repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Revisar la sintaxis del programa
+        run: python -m py_compile bella_glow.py
+
+      - name: Ejecutar las pruebas
+        run: python -m unittest test_bella_glow.py -v
+
+      - name: Comprobacion final
+        run: echo "La validacion de Bella Glow termino correctamente"
